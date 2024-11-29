@@ -2,20 +2,23 @@
 
 require './Entity/Cliente.php';
 
-//RECEBENDO OS DADOS DO FORMS
-$nome = 'Rafael Devzinho';
-$cpf = '12312312333';
-$email = 'rafaeldevmenosjunior@live.com';
+//ESSAS VARIÁVEIS IRAO ARMAZENAR AS INFORMAÇOES VINDAS DO HTML, POR EXEMPLO
+//PREENCHIMENTO DE UM FORMULÁRIO, TRATANDO
+$nome = "";
+$cpf = "";
+$email = "";
 
-$cliente = new Cliente($nome,$cpf,$email);
-$resposta_servidor = $cliente->cadastrar();
+//INSTANCIANDO UM OBJETO DO TIPO CLIENTE, UM CLIENTE TEM ATRIBUTOS NOME,CPF,EMAIL
+$cli = new Cliente($nome,$cpf,$email);
 
-if($resposta_servidor == true){
-    echo "Cliente cadastrado com sucesso! ";
+//CHAMA O MÉTODO PARA CADASTRAR ESSE CLIENTE QUE FOI INSTANCIADO
+$cli->cadastrar();
 
-}else{
-    echo "Erro ao cadastrar. ";
+//RESULT VARIÁVEL QUE CONTÉM UM ARRAY RETORNADO DO BANCO DE DADOS
+$result = $cli->buscar();
+
+foreach ($result as $pessoa){
+    echo "<br> " .$pessoa['id'] . ' ' .$pessoa['nome'] ;
 }
-
 
 ?>

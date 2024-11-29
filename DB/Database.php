@@ -28,7 +28,7 @@ class Database{
 
     
     public function execute($query,$binds = []){
-        //BINDS = parametros
+        //BINDS = SELECT 
         try{
             $stmt = $this->conn->prepare($query);
             $stmt->execute($binds);
@@ -64,5 +64,31 @@ class Database{
         }
     }
 
+    public function select($where = null,$order = null,$limit = null, $fields = '*'){
+            //montando a query
+        $where = strlen($where) ? 'WHERE ' . $where : '';
+        $order = strlen($order) ? 'ORDER BY ' . $order : '';
+        $limit = strlen($limit) ? 'LIMIT ' . $limit : '';
+
+        $query = 'SELECT '.$fields. ' FROM ' .$this->table. ' '.$where;
+        //SELECT * FROM pessoa;
+        return $this->execute($query);
+
+    }
+        //FUNÇÃO PARA DELETAR NO DB - $query = $sql 
+    public function delete($where){
+
+        $query= 'DELETE FROM '.$this->table.' WHERE '.$where;
+        $result = $this->execute($query);
+        
+        if($result == true){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+
 
 }
+?>

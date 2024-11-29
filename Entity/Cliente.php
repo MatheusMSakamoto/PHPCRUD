@@ -16,7 +16,6 @@ class Cliente{
         $this->email = $email;
     }
 
-
     public function cadastrar(){
         $db = new Database('cliente');
         $result =  $db->insert(
@@ -33,7 +32,17 @@ class Cliente{
         else{
             return false;
         }
+    }
+
+    public static function buscar($where=null,$order=null,$limit=null){
+        //FETCHALL
+        return (new Database('cliente'))->select()->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function excluir($id){
+        return (new Database('cliente'))->delete('id ='.$id);
         
     }
 
 }
+?>
